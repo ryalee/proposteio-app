@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export default function Home() {
@@ -15,9 +16,12 @@ export default function Home() {
           focado nas necessidades dele e agregando valor a sua entrega.
         </p>
 
-        <button className="bg-[#101970] text-white font-semibold p-4 rounded-xl w-[40%] hover:bg-[#090d3f] hover:text-white shadow-lg cursor-pointer mt-4 hover:scale-105 transition-all duration-300">
+        <Link 
+          href={'/nova-proposta'}
+          className="bg-[#101970] text-white font-semibold p-4 rounded-xl w-[40%] hover:bg-[#090d3f] hover:text-white shadow-lg cursor-pointer mt-4 hover:scale-105 transition-all duration-300"
+        >
           Crie agora, é grátis!
-        </button>
+        </Link>
       </div>
     </section>
   );
