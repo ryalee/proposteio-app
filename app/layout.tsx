@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-// import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "Proposteio",
@@ -14,10 +14,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body
-        supreessedHydrationWarning
-      >
-        {children}
+      <body suppressHydrationWarning className="flex flex-col">
+        <>
+          <Header />
+
+          <main className="mt-30">
+            {children}
+          </main>
+        </>
       </body>
     </html>
   );
