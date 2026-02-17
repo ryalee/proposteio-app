@@ -1,7 +1,19 @@
 'use client'
 
 import { useState } from 'react';
-import { PanelsTopLeft, Palette, MonitorSmartphone, ChartNoAxesCombined, Video, ListFilter, ArrowRight, ArrowLeft } from 'lucide-react';
+import { 
+  PanelsTopLeft, 
+  Palette, 
+  MonitorSmartphone, 
+  ChartNoAxesCombined, 
+  Video, 
+  ListFilter, 
+  ArrowRight, 
+  ArrowLeft, 
+  PenLine, 
+  RotateCw, 
+  Copy, 
+  Download } from 'lucide-react';
 
 type ProjectType = 'website' | 'UI/UX' | 'app' | 'marketing' | 'video' | 'outro';
 type Language = 'pt-BR' | 'en' | 'es';
@@ -276,7 +288,7 @@ export default function NovaProposta() {
                   >
                     <option value="dias">Dias</option>
                     <option value="semanas">Semanas</option>
-                    <option value="meses">Meses</option
+                    <option value="meses">Meses</option>
                   </select>
                 </div>
               </div>
@@ -300,9 +312,98 @@ export default function NovaProposta() {
           )}
 
           {/* step 3 -> proposta é gerada */}
-          {currentStep === 3 && ()}
+          {currentStep === 3 && (
+            <div className='animate-fadeIn'>
+              {isLoading ? (
+                <div className='text-center py-16'>
+                  <div className='inline-block w-12 h-12 border-4 border-gray-200 border-t-indigo-600 rounded-full animate-spin mb-4'></div>
+                  <p className='text-gray-500'>Gerando sua proposta...</p>
+                </div>
+              ) : (
+                <>
+                  <h2 className='text-2xl font-semibold text-gray-800 mb-2'>Sua proposta está pronta!</h2>
+                  <p className='text-gray-500 mb-8 text-sm'>Revise e personalize antes de enviar</p>
+
+                  <div className='bg-gray-50 border-2 border-gray-200 rounded-xl p-6 mb-6 whitespace-pre-line text-sm text-gray-700 leading-relaxed'>
+                    {proposal}
+                  </div>
+
+                  <div className='grid grid-cols-2 gap-3 mb-6'>
+                    <button
+                      onClick={() => {
+                        const newText = prompt('Edite sua proposta:', proposal);
+                        if(newText) setProposal(newText);
+                      }}
+                      className='flex items-center px-4 py-3 border-2 border-indigo-600 text-indigo-600 rounded-xl font-semibold hover:bg-indigo-50 transition-all'
+                    >
+                      <PenLine className='inline-block mr-2'/>
+                      Editar
+                    </button>
+
+                    <button 
+                      onClick={regenerateProposal}
+                      className='flex items-center px-4 py-3 border-2 border-indigo-600 text-indigo-600 rounded-xl font-semibold hover:bg-indigo-50 transition-all'
+                    >
+                      <RotateCw className='inline-block mr-2'/>
+                      Gerar Novamente
+                    </button>
+
+                    <button
+                      onClick={copyProposal}
+                      className='flex items-center px-4 py-3 border-2 border-indigo-600 text-indigo-600 rounded-xl font-semibold hover:bg-indigo-50 transition-all'
+                    >
+                      <Copy className='inline-block mr-2'/>
+                      Copiar Proposta
+                    </button>
+
+                    <button
+                      onClick={() => alert('Em breve!')}
+                      className='flex items-center px-4 py-3 border-2 border-indigo-600 text-indigo-600 rounded-xl font-semibold hover:bg-indigo-50 transition-all'
+                    >
+                      <Download className='inline-block mr-2'/>
+                      Baixar Proposta
+                    </button>
+                  </div>
+
+                  <div className='flex gap-3'>
+                    <button
+                      onClick={prevStep}
+                      className='flex-1 bg-gray-200 text-gray-700 py-3.5 rounded-xl font-semibold hover:bg-gray-300 transition-all'
+                    >
+                      <ArrowLeft className='inline-block mr-2'/> 
+                      Voltar
+                    </button>
+
+                    <button
+                      className='flex-1 bg-[#101970] text-white py-3.5 rounded-xl font-semibold hover:shadow-lg hover:-translate-y-0.5 transition-all'
+                    >
+                      Criar Nova Proposta
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
         </div>
       </div>
+
+      <style jsx global>
+        {`
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+              transform: translateY(10px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          .animate-fadeIn {
+            animation: fadeIn 0.3s ease-in;
+          }
+        `}
+      </style>
     </section>
-  )
-}
+  );
+};
