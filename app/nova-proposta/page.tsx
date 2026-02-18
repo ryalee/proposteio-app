@@ -72,7 +72,7 @@ export default function NovaProposta() {
     },
   ];
 
-  const languages = [
+  const languages: { code: Language; flag: string; name: string }[] = [
     { code: "pt-BR", flag: "🇧🇷", name: "Português" },
     { code: "en", flag: "🇺🇸", name: "Inglês" },
     { code: "es", flag: "🇪🇸", name: "Espanhol" },
