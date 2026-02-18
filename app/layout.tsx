@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/Header";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Proposteio",
@@ -16,16 +16,12 @@ export default function RootLayout({
     <html lang="pt-br">
       <body suppressHydrationWarning className="flex flex-col">
         <>
-          <header className="flex justify-around items-center p-6 w-full fixed bg-white shadow-sm z-50">
-            <h1 className="font-extrabold text-[#101970] text-3xl">Proposteio</h1>
-
-            <div className="text-[#090e41] flex items-center gap-2">
-              <h1 className="font-bold text-3xl">Olá!</h1>
-              <p className="text-xl">Pronto para seu próximo <span className="font-bold text-green-600">SIM</span>?</p>
-            </div>
+          <header className="flex flex-col gap-2 items-center p-6 w-full fixed bg-white shadow-sm z-50">
+            <Link href={'/'} className="font-extrabold text-[#101970] text-3xl">Proposteio</Link>
+            <p className="text-sm text-gray-600">Seu parceiro gerador de propostas</p>
           </header>
 
-          <main className="mt-30">
+          <main className="mt-40">
             {children}
           </main>
         </>

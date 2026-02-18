@@ -363,7 +363,7 @@ export default function NovaProposta() {
 
               <div className="mb-6">
                 <label className="block mb-2 font-medium text-sm">
-                  O que o cliente precisa resolver?{" "}
+                  O que o cliente deseja?{" "}
                   <span className="text-red-600 text-xs">*</span>
                 </label>
 
