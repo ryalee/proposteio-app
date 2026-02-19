@@ -21,7 +21,7 @@ export default function RootLayout({
             <p className="text-sm text-gray-600">Seu parceiro gerador de propostas</p>
           </header>
 
-          <main className="mt-40">
+          <main className="my-40">
             {children}
           </main>
         </>
