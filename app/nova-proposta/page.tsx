@@ -43,6 +43,40 @@ export default function NovaProposta() {
   const [proposal, setProposal] = useState("");
   const [error, setError] = useState(""); // ✅ ADICIONADO
 
+  // modal
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalType, setModalType] = useState<"success" | "error" | "confirm">(
+    "success",
+  );
+  const [modalCallback, setModalCallback] = useState<(() => void) | null>(null);
+
+  // funções modal
+  const openModal = (
+    title: string,
+    message: string,
+    type: "success" | "error" | "confirm" = "success",
+    callback?: () => void,
+  ) => {
+    setModalTitle(title);
+    setModalMessage(message);
+    setModalType(type);
+    setModalCallback(() => callback || null);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    if (modalCallback && modalType === "confirm") {
+      modalCallback();
+    }
+  };
+
+  const cancelModal = () => {
+    setModalOpen(false);
+  };
+
   const projectTypes = [
     {
       type: "website",
@@ -91,37 +125,47 @@ export default function NovaProposta() {
   const validateStep = () => {
     if (currentStep === 1) {
       if (!formData.clientName.trim()) {
-        alert(
-          "O nome do cliente é essencial para uma proposta persuasiva. Por favor, preencha este campo para avançar.",
+        openModal(
+          "Campo obrigatório",
+          "O nome do cliente é essencial para personalizar sua proposta. Por favor, preencha este campo para avançar.",
+          "error",
         );
         return false;
       }
 
       if (!formData.projectType) {
-        alert(
-          "Escolher um tipo de projeto é fundamental para criar uma proposta personalizada. Por favor, selecione uma opção para avançar.",
+        openModal(
+          "Campo obrigatório",
+          "Selecionar o tipo de projeto é fundamental para que a IA possa criar uma proposta alinhada às necessidades do cliente. Por favor, escolha uma opção para continuar.",
+          "error",
         );
         return false;
       }
     }
     if (currentStep === 2) {
       if (!formData.challenge.trim()) {
-        alert(
+        openModal(
+          "Campo obrigatório",
           "Descrever o desafio do cliente é crucial para criar uma proposta que realmente atenda às suas necessidades. Por favor, preencha este campo para avançar.",
+          "error",
         );
         return false;
       }
 
       if (!formData.price.trim()) {
-        alert(
+        openModal(
+          "Campo obrigatório",
           "Por favor, informe o valor do projeto para que possamos incluir na proposta.",
+          "error",
         );
         return false;
       }
 
       if (!formData.duration) {
-        alert(
+        openModal(
+          "Campo obrigatório",
           "Por favor, informe a duração do projeto para que possamos incluir na proposta.",
+          "error",
         );
         return false;
       }
@@ -171,64 +215,105 @@ export default function NovaProposta() {
   };
 
   // copiar proposta
+  const copyFallback = () => {
+    const textarea = document.createElement("textarea");
+    textarea.value = proposal;
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    document.body.appendChild(textarea);
+    textarea.select();
+
+    try {
+      document.execCommand("copy");
+      openModal(
+        "Sucesso",
+        "Proposta copiada para a área de transferência!",
+        "success",
+      );
+    } catch (err) {
+      openModal(
+        "Erro",
+        "Não foi possível copiar a proposta. Por favor, copie manualmente.",
+        "error",
+      );
+    }
+
+    document.body.removeChild(textarea);
+  };
+
   const copyProposal = () => {
-    navigator.clipboard.writeText(proposal);
-    alert("✔️ Proposta copiada!");
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard
+        .writeText(proposal)
+        .then(() =>
+          openModal(
+            "Sucesso",
+            "Proposta copiada para a área de transferência!",
+            "success",
+          ),
+        )
+        .catch(() => copyFallback());
+    } else {
+      copyFallback();
+    }
   };
 
   // gerar outra porposta
   const regenerateProposal = async () => {
-    if (
-      !confirm(
-        "Tem certeza que deseja gerar uma nova proposta? A proposta atual será substituída.",
-      )
-    ) {
-      return;
-    }
+    openModal(
+      "Confirmar ação",
+      "Tem certeza que deseja gerar outra versão da proposta? A versão atual será perdida.",
+      "confirm",
+      async () => {
+        setIsLoading(true);
+        setError("");
 
-    setIsLoading(true);
-    setError("");
+        try {
+          const response = await fetch("/api/gerar-proposta", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+          });
 
-    try {
-      const response = await fetch("/api/gerar-proposta", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+          if (!response.ok) {
+            throw new Error("Erro ao regenerar proposta");
+          }
 
-      if (!response.ok) {
-        throw new Error("Erro ao regenerar proposta");
-      }
-
-      const data = await response.json();
-      setProposal(data.proposal);
-    } catch (err) {
-      console.error("Erro ao regenerar proposta:", err);
-      setError("Erro ao regenerar proposta. Por favor, tente novamente.");
-    } finally {
-      setIsLoading(false);
-    }
+          const data = await response.json();
+          setProposal(data.proposal);
+        } catch (err) {
+          console.error("Erro ao regenerar proposta:", err);
+          setError("Erro ao regenerar proposta. Por favor, tente novamente.");
+        } finally {
+          setIsLoading(false);
+        }
+      },
+    );
   };
 
   // criar nova proposta
   const newProposal = () => {
-    if (
-      confirm("Deseja criar uma nova proposta? Os dados atuais serão perdidos.")
-    ) {
-      setFormData({
-        clientName: "",
-        projectType: "",
-        language: "pt-BR",
-        challenge: "",
-        price: "",
-        currency: "BRL",
-        duration: "",
-        durationUnit: "dias",
-      });
-      setProposal("");
-      setError("");
-      setCurrentStep(1);
-    }
+    openModal(
+      "Confirmar ação",
+      "Tem certeza que deseja criar uma nova proposta? Todos os dados atuais serão perdidos.",
+      "confirm",
+
+      () => {
+        setFormData({
+          clientName: "",
+          projectType: "",
+          language: "pt-BR",
+          challenge: "",
+          price: "",
+          currency: "BRL",
+          duration: "",
+          durationUnit: "dias",
+        });
+        setProposal("");
+        setError("");
+        setCurrentStep(1);
+      },
+    );
   };
 
   const progress = (currentStep / 3) * 100;
@@ -244,13 +329,8 @@ export default function NovaProposta() {
           </p>
         </div>
 
-        {/* barra de progresso */}
-        <div className="h-1.5 bg-blue-600">
-          <span
-            className="h-full bg-blue-200 transition-all duration-300"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
+        {/* barra superior */}
+        <div className="h-1.5 bg-blue-600"></div>
 
         {/* conteudo */}
         <div className="p-10">
@@ -362,9 +442,15 @@ export default function NovaProposta() {
               </p>
 
               <div className="mb-6">
-                <label className="block mb-2 font-medium text-sm">
-                  O que o cliente deseja?{" "}
-                  <span className="text-red-600 text-xs">*</span>
+                <label className="flex flex-col mb-2 font-medium text-sm">
+                  <p>
+                    O que o cliente deseja?{" "}
+                    <span className="text-red-600 text-xs">*</span>
+                  </p>
+                  <span className="text-xs text-gray-500">
+                    (use o máximo de detalhes possível. Recomendamos colar o que
+                    o ele escreveu no anúncio)
+                  </span>{" "}
                 </label>
 
                 <textarea
@@ -421,9 +507,9 @@ export default function NovaProposta() {
                     onChange={(e) =>
                       setFormData({ ...formData, duration: e.target.value })
                     }
-                    placeholder="4"
+                    placeholder="Ex: 4"
                     min="1"
-                    className="flex-1 px-4 py-3 border border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none transition-all"
+                    className="flex-1 px-4 py-3 border border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none transition-all w-[50%]"
                   />
 
                   <select
@@ -431,7 +517,7 @@ export default function NovaProposta() {
                     onChange={(e) =>
                       setFormData({ ...formData, durationUnit: e.target.value })
                     }
-                    className="flex-1 px-4 py-3 border border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none transition-all"
+                    className="flex-1 px-4 py-3 border border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none transition-all w-[50%]"
                   >
                     <option value="dias">Dias</option>
                     <option value="semanas">Semanas</option>
@@ -443,14 +529,14 @@ export default function NovaProposta() {
               <div className="flex gap-3">
                 <button
                   onClick={prevStep}
-                  className="flex-1 bg-gray-200 text-gray-700 py-3.5 rounded-xl font-semibold hover:bg-gray-300 transition-all"
+                  className="flex-1 bg-gray-200 text-xs text-gray-700 py-3.5 rounded-xl font-semibold hover:bg-gray-300 transition-all"
                 >
-                  <ArrowLeft className="inline-block mr-2" /> Voltar
+                  <ArrowLeft className="inline-block text mr-2" /> Voltar
                 </button>
 
                 <button
                   onClick={generateProposal}
-                  className="flex-1 bg-[#101970] text-white py-3.5 rounded-xl font-semibold hover:shadow-lg hover:-translate-y-0.5 transition-all"
+                  className="flex-1 bg-[#101970] text-xs text-white py-3.5 rounded-xl font-semibold hover:shadow-lg hover:-translate-y-0.5 transition-all"
                 >
                   Gerar Proposta com IA
                 </button>
@@ -535,6 +621,105 @@ export default function NovaProposta() {
         </div>
       </div>
 
+      {modalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 animate-fadeIn">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 relative animate-scaleIn">
+            <button
+              onClick={cancelModal}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              ✕
+            </button>
+
+            <div className="flex justify-center mb-4">
+              {modalType === "success" && (
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                  <svg
+                    className="w-8 h-8 text-green-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+              )}
+              {modalType === "error" && (
+                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
+                  <svg
+                    className="w-8 h-8 text-red-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </div>
+              )}
+              {modalType === "confirm" && (
+                <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center">
+                  <svg
+                    className="w-8 h-8 text-yellow-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                    />
+                  </svg>
+                </div>
+              )}
+            </div>
+
+            <h3 className="text-xl font-semibold text-gray-900 text-center mb-2">
+              {modalTitle}
+            </h3>
+
+            <p className="text-gray-600 text-center mb-6">{modalMessage}</p>
+
+            <div className="flex gap-3">
+              {modalType === "confirm" ? (
+                <>
+                  <button
+                    onClick={cancelModal}
+                    className="flex-1 px-4 py-2.5 bg-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-300 transition-all"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    onClick={closeModal}
+                    className="flex-1 px-4 py-2.5 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-all"
+                  >
+                    Confirmar
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={cancelModal}
+                  className="w-full px-4 py-2.5 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-all"
+                >
+                  OK
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       <style jsx global>
         {`
           @keyframes fadeIn {
@@ -547,8 +732,24 @@ export default function NovaProposta() {
               transform: translateY(0);
             }
           }
+
           .animate-fadeIn {
             animation: fadeIn 0.3s ease-in;
+          }
+
+          @keyframes scaleIn {
+            from {
+              opacity: 0;
+              transform: scale(0.9);
+            }
+            to {
+              opacity: 1;
+              transform: scale(1);
+            }
+          }
+
+          .animate-scaleIn {
+            animation: scaleIn 0.3s ease-in;
           }
         `}
       </style>
