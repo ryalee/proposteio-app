@@ -41,7 +41,7 @@ export default function NovaProposta() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [proposal, setProposal] = useState("");
-  const [error, setError] = useState(""); // ✅ ADICIONADO
+  const [error, setError] = useState("");
 
   // modal
   const [modalOpen, setModalOpen] = useState(false);
@@ -81,13 +81,13 @@ export default function NovaProposta() {
     {
       type: "website",
       icon: <PanelsTopLeft className="w-5 h-5" />,
-      name: "Website",
+      name: "Website, Landing Page",
     },
     { type: "UI/UX", icon: <Palette className="w-5 h-5" />, name: "UI/UX" },
     {
       type: "app",
       icon: <MonitorSmartphone className="w-5 h-5" />,
-      name: "Aplicativo",
+      name: "Aplicativo, software ou sistema",
     },
     {
       type: "marketing",
