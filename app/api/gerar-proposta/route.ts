@@ -24,7 +24,7 @@ export async function POST(request: Request) {
 
     const prompt = `Você é um copywriter especialista em propostas comerciais para freelancers.
       Gere uma proposta comercial sintetizada e profissional para o cliente ${clientName}.
-      Idioma: ${language}. Serviço (quando tiver mais de uma opção como no caso do aplicativo, software e sistema indique com base no pedido do cliente que será enviado, se atente a isso): ${projectTypeNames[projectType] || projectType}. Desafio: ${challenge}. Valor: ${currencySymbol} ${price}.
+      Idioma: ${language}. Serviço: ${projectTypeNames[projectType] || projectType}. Desafio: ${challenge}. Valor: ${currencySymbol} ${price}.
       Duração Estimada: ${duration ? `${duration} ${durationUnit}` : 'A combinar'}.
       Tom: profissional mas amigável, persuasivo e acessível. Sem formalidade exagerada e mantendo uma postura de especialista que entende as necessidades do cliente e oferece soluções claras. Evite termos como 'prezado' e coisas assim.
 
