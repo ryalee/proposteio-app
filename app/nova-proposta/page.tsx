@@ -424,7 +424,7 @@ export default function NovaProposta() {
 
               <button
                 onClick={nextStep}
-                className="w-full bg-[#101970] text-white py-3.5 rounded-xl font-semibold hover:shadow-lg hover:-translate-y-0.5 transition-all"
+                className="w-full bg-[#101970] text-white py-3.5 rounded-xl font-semibold hover:shadow-lg hover:-translate-y-0.5 transition-all cursor-pointer"
               >
                 Próximo <ArrowRight className="inline-block ml-2" />
               </button>
@@ -529,14 +529,14 @@ export default function NovaProposta() {
               <div className="flex gap-3">
                 <button
                   onClick={prevStep}
-                  className="flex-1 bg-gray-200 text-xs text-gray-700 py-3.5 rounded-xl font-semibold hover:bg-gray-300 transition-all"
+                  className="flex-1 bg-gray-200 text-xs text-gray-700 py-3.5 rounded-xl font-semibold hover:bg-gray-300 transition-all cursor-pointer"
                 >
                   <ArrowLeft className="inline-block text mr-2" /> Voltar
                 </button>
 
                 <button
                   onClick={generateProposal}
-                  className="flex-1 bg-[#101970] text-xs text-white py-3.5 rounded-xl font-semibold hover:shadow-lg hover:-translate-y-0.5 transition-all"
+                  className="flex-1 bg-[#101970] text-xs text-white py-3.5 rounded-xl font-semibold hover:shadow-lg hover:-translate-y-0.5 transition-all cursor-pointer"
                 >
                   Gerar Proposta com IA
                 </button>
@@ -559,7 +559,7 @@ export default function NovaProposta() {
                   <p className="text-red-500 mb-4">{error}</p>
                   <button
                     onClick={() => setCurrentStep(2)}
-                    className="bg-gray-200 text-gray-700 px-6 py-2 rounded-xl font-semibold hover:bg-gray-300 transition-all"
+                    className="bg-gray-200 text-gray-700 px-6 py-2 rounded-xl font-semibold hover:bg-gray-300 transition-all cursor-pointer"
                   >
                     Voltar e Tentar Novamente
                   </button>
@@ -583,7 +583,7 @@ export default function NovaProposta() {
                     <button
                       onClick={regenerateProposal}
                       disabled={isLoading}
-                      className="flex items-center justify-center px-4 py-3 border-2 border-indigo-600 text-indigo-600 rounded-xl font-semibold hover:bg-indigo-50 transition-all disabled:opacity-50"
+                      className="flex items-center justify-center px-4 py-3 border-2 border-indigo-600 text-indigo-600 rounded-xl font-semibold hover:bg-indigo-50 transition-all disabled:opacity-50 cursor-pointer"
                     >
                       <RotateCw className="inline-block mr-2" />
                       Gerar Outra Versão
@@ -591,7 +591,7 @@ export default function NovaProposta() {
 
                     <button
                       onClick={copyProposal}
-                      className="flex items-center justify-center px-4 py-3 border-2 border-indigo-600 text-indigo-600 rounded-xl font-semibold hover:bg-indigo-50 transition-all"
+                      className="flex items-center justify-center px-4 py-3 border-2 border-indigo-600 text-indigo-600 rounded-xl font-semibold hover:bg-indigo-50 transition-all cursor-pointer"
                     >
                       <Copy className="inline-block mr-2" />
                       Copiar
@@ -601,7 +601,7 @@ export default function NovaProposta() {
                   <div className="flex gap-3">
                     <button
                       onClick={prevStep}
-                      className="flex-1 bg-gray-200 text-gray-700 py-3.5 rounded-xl font-semibold hover:bg-gray-300 transition-all"
+                      className="flex-1 bg-gray-200 text-gray-700 py-3.5 rounded-xl font-semibold hover:bg-gray-300 transition-all cursor-pointer"
                     >
                       <ArrowLeft className="inline-block mr-2" />
                       Voltar
@@ -609,7 +609,7 @@ export default function NovaProposta() {
 
                     <button
                       onClick={newProposal}
-                      className="flex-1 bg-[#101970] text-white py-3.5 rounded-xl font-semibold hover:shadow-lg hover:-translate-y-0.5 transition-all"
+                      className="flex-1 bg-[#101970] text-white py-3.5 rounded-xl font-semibold hover:shadow-lg hover:-translate-y-0.5 transition-all cursor-pointer"
                     >
                       Nova Proposta
                     </button>
@@ -626,7 +626,7 @@ export default function NovaProposta() {
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 relative animate-scaleIn">
             <button
               onClick={cancelModal}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
             >
               ✕
             </button>
@@ -696,13 +696,13 @@ export default function NovaProposta() {
                 <>
                   <button
                     onClick={cancelModal}
-                    className="flex-1 px-4 py-2.5 bg-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-300 transition-all"
+                    className="flex-1 px-4 py-2.5 bg-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-300 transition-all cursor-pointer"
                   >
                     Cancelar
                   </button>
                   <button
                     onClick={closeModal}
-                    className="flex-1 px-4 py-2.5 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-all"
+                    className="flex-1 px-4 py-2.5 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-all cursor-pointer"
                   >
                     Confirmar
                   </button>
@@ -710,7 +710,7 @@ export default function NovaProposta() {
               ) : (
                 <button
                   onClick={cancelModal}
-                  className="w-full px-4 py-2.5 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-all"
+                  className="w-full px-4 py-2.5 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-all cursor-pointer"
                 >
                   OK
                 </button>
