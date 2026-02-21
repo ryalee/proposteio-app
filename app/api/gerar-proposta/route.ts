@@ -28,9 +28,9 @@ export async function POST(request: Request) {
       Duração Estimada: ${duration ? `${duration} ${durationUnit}` : 'A combinar'}.
       Tom: profissional mas amigável, persuasivo e acessível. Sem formalidade exagerada e mantendo uma postura de especialista que entende as necessidades do cliente e oferece soluções claras. Evite termos como 'prezado' e coisas assim.
 
-      mantenha uma variação em cada proposta, cada proposta tem que ter um modelo diferente e nãoseguir um "template", não gere sempre a mesma estrutura, tenha um estilo mais criativo sem ser "mais do mesmo". Mas mantenha o seguinte: SAUDAÇÃO PERSONALIZADA, O QUE VAMOS ENTREGAR (LISTA), PORTFÓLIO, CRONOGRAMA, INVESTIMENTO. NÃO USE MARKDOWN.
+      mantenha uma variação em cada proposta, cada proposta tem que ter um modelo diferente e nãoseguir um "template", não gere sempre a mesma estrutura, tenha um estilo mais criativo sem ser "mais do mesmo".
 
-      máximo de 300 palavras. Seja direto e evite jargões técnicos. O objetivo é convencer o cliente a aceitar a proposta, destacando os benefícios e o valor do serviço oferecido.
+      máximo de 250 palavras. Seja direto e evite jargões técnicos. O objetivo é convencer o cliente a aceitar a proposta, destacando os benefícios e o valor do serviço oferecido.
 
       NÃO ESQUEÇA DE GERAR DE ACORDO COM O IDIOMA ${language}. Se o idioma for português, escreva a proposta em português. Se for inglês, escreva em inglês. Se for espanhol, escreva em espanhol.
 
