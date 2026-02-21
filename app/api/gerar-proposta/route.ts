@@ -23,12 +23,12 @@ export async function POST(request: Request) {
     const currencySymbol = currency === 'BRL' ? 'R$' : currency === 'USD' ? '$' : '€';
 
     const prompt = `Você é um copywriter especialista em propostas comerciais para freelancers.
-      Gere uma proposta comercial sintetizada e profissional para o cliente ${clientName}.
+      Gere uma proposta comercial sintetizada e profissional com um tom amigavel para o cliente ${clientName}.
       Idioma: ${language}. Serviço: ${projectTypeNames[projectType] || projectType}. Desafio: ${challenge}. Valor: ${currencySymbol} ${price}.
       Duração Estimada: ${duration ? `${duration} ${durationUnit}` : 'A combinar'}.
       Tom: profissional mas amigável, persuasivo e acessível. Sem formalidade exagerada e mantendo uma postura de especialista que entende as necessidades do cliente e oferece soluções claras. Evite termos como 'prezado' e coisas assim.
 
-      mantenha uma variação em cada proposta, não gere sempre a mesma estrutura, tenha um estilo mais criativo sem ser "mais do mesmo". Mas mantenha o seguinte: SAUDAÇÃO PERSONALIZADA, O QUE VAMOS ENTREGAR (LISTA), PORTFÓLIO, CRONOGRAMA, INVESTIMENTO. NÃO USE MARKDOWN.
+      mantenha uma variação em cada proposta, cada proposta tem que ter um modelo diferente e nãoseguir um "template", não gere sempre a mesma estrutura, tenha um estilo mais criativo sem ser "mais do mesmo". Mas mantenha o seguinte: SAUDAÇÃO PERSONALIZADA, O QUE VAMOS ENTREGAR (LISTA), PORTFÓLIO, CRONOGRAMA, INVESTIMENTO. NÃO USE MARKDOWN.
 
       máximo de 300 palavras. Seja direto e evite jargões técnicos. O objetivo é convencer o cliente a aceitar a proposta, destacando os benefícios e o valor do serviço oferecido.
 
