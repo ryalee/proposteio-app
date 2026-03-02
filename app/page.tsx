@@ -54,7 +54,7 @@ export default function Home() {
           {plataformas.map((plataforma) => (
             <div 
               key={plataforma.id} 
-              className='shadow-md border-2 rounded-xl p-2 flex items-center gap-2 w-full md:w-50' 
+              className="shadow-md border-2 rounded-xl p-2 flex items-center gap-2 w-full md:w-50"
               style={{ borderColor: plataforma.borderColor }}
             >
               <Image
