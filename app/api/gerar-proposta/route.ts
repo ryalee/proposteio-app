@@ -56,11 +56,11 @@ export async function POST(request: Request) {
     - Foque nos benefícios e impacto final, não apenas nas tarefas.
     - Não use jargões técnicos desnecessários.
     - Não use markdown.
-    - Máximo 250 palavras.
+    - Máximo 210 palavras.
 
     ESTRUTURA OBRIGATÓRIA (mas com liberdade criativa na forma de apresentar):
 
-    1. Saudação personalizada.
+    1. Saudação personalizada baseado nas necessidades enviadas.
     2. O que será entregue (em formato de lista simples, sem símbolos).
     3. Breve menção a experiência ou portfólio relevante.
     4. Cronograma ou expectativa de execução.
@@ -76,7 +76,7 @@ export async function POST(request: Request) {
 
     Nunca repita padrão estrutural de proposta anterior.
 
-    Escreva obrigatoriamente no idioma ${language}.`;
+    Escreva obrigatoriamente no idioma ${language} selecionado.`;
 
     const response = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
