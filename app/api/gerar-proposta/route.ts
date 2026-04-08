@@ -47,7 +47,7 @@ export async function POST(request: Request) {
     REGRAS ESTRATÉGICAS:
 
     - A proposta deve soar 100% escrita manualmente.
-    - Nunca reutilize estruturas previsíveis.
+    - NUNCA reutilize estruturas previsíveis.
     - A abertura deve variar a cada geração.
     - Varie o ritmo das frases.
     - Evite termos muito formais, como "prezado"
@@ -60,11 +60,11 @@ export async function POST(request: Request) {
 
     ESTRUTURA OBRIGATÓRIA (mas com liberdade criativa na forma de apresentar):
 
-    1. Saudação personalizada baseado nas necessidades enviadas.
-    2. O que será entregue (em formato de lista simples, sem símbolos).
-    3. Breve menção a experiência ou portfólio relevante.
-    4. Cronograma ou expectativa de execução.
-    5. Investimento.
+    1. Saudação personalizada baseado nas necessidades enviadas pelo cliente.
+    2. A proposta DEVE ser num tom humano e natural.
+    3. O que será entregue (em formato de lista simples, sem símbolos).
+    4. Breve menção a experiência ou portfólio relevante.
+    5. Cronograma ou expectativa de execução.
     6. Encerramento estratégico que incentive resposta.
 
     IMPORTANTE:
