@@ -54,6 +54,7 @@ export async function POST(request: Request) {
     - Evite frases clichês de marketplace.
     - Demonstre entendimento real do desafio apresentado.
     - Foque nos benefícios e impacto final, não apenas nas tarefas.
+    - Mostra que o investimento do ${clientName} no meu serviço vai gerar algum retorno pro negócio dele.
     - Não use jargões técnicos desnecessários.
     - Não use markdown.
     - Máximo 210 palavras.
