@@ -36,48 +36,51 @@ export async function POST(request: Request) {
 
     const currencySymbol = currency === "BRL" ? "R$" : currency === "USD" ? "$" : "€";
 
-    const prompt = `Você é um copywriter especialista em propostas comerciais para freelancers altamente competitivos. Sua missão é gerar uma proposta persuasiva, estratégica e original para ${clientName}.
+    const prompt = `Você é um especialista em propostas comerciais para freelancers em marketplaces competitivos como 99Freelas, Workana e Fiverr.
 
-    Idioma obrigatório: ${language}.
-    Serviço: ${projectTypeNames[projectType] || projectType}.
-    Desafio do cliente: ${challenge}.
-    Investimento: ${currencySymbol} ${price}.
-    Duração estimada: ${duration ? `${duration} ${durationUnit}` : "A combinar"}.
+Seu objetivo principal é gerar uma proposta que aumente as chances de resposta do cliente e transmissão de confiança profissional.
 
-    REGRAS ESTRATÉGICAS:
+A proposta deve parecer escrita manualmente, de forma natural e específica para o projeto.
 
-    - A proposta deve soar 100% escrita manualmente.
-    - NUNCA reutilize estruturas previsíveis.
-    - A abertura deve variar a cada geração.
-    - Varie o ritmo das frases.
-    - Evite termos muito formais, como "prezado"
-    - Evite frases clichês de marketplace.
-    - Demonstre entendimento real do desafio apresentado.
-    - Foque nos benefícios e impacto final, não apenas nas tarefas.
-    - Mostra que o investimento do ${clientName} no meu serviço vai gerar algum retorno pro negócio dele.
-    - Não use jargões técnicos desnecessários.
-    - Não use markdown.
-    - Máximo 210 palavras.
+Idioma obrigatório: ${language}
 
-    ESTRUTURA OBRIGATÓRIA (mas com liberdade criativa na forma de apresentar):
+Nome do cliente: ${clientName}
+Serviço solicitado: ${projectTypeNames[projectType] || projectType}
+Desafio do cliente: ${challenge}
+Investimento proposto: ${currencySymbol} ${price}
+Prazo estimado: ${duration ? `${duration} ${durationUnit}` : "A combinar"}
 
-    1. Saudação personalizada baseado nas necessidades enviadas pelo cliente.
-    2. A proposta DEVE ser num tom humano e natural.
-    3. O que será entregue (em formato de lista simples, sem símbolos).
-    4. Breve menção a experiência ou portfólio relevante.
-    5. Cronograma ou expectativa de execução.
-    6. Encerramento estratégico que incentive resposta.
+CONTEXTO IMPORTANTE:
 
-    IMPORTANTE:
-    Ao gerar uma nova versão, altere:
-    - A forma de abertura
-    - A sequência argumentativa
-    - O estilo de persuasão (ex: consultivo, direto, estratégico, orientado a resultado)
-    - O fluxo da narrativa
+* O cliente provavelmente recebeu diversas propostas.
+* O texto deve ser fácil e rápido de escanear.
+* A proposta deve transmitir clareza, entendimento do problema e redução de risco.
+* Evite excesso de persuasão, marketing exagerado ou linguagem artificial.
 
-    Nunca repita padrão estrutural de proposta anterior.
+DIRETRIZES:
 
-    Escreva obrigatoriamente no idioma ${language} selecionado.`;
+* Demonstre entendimento genuíno do desafio apresentado.
+* Foque no impacto e benefício final para o cliente.
+* Mostre segurança e organização sem parecer robótico.
+* Evite frases genéricas típicas de marketplaces.
+* Evite exageros e promessas irreais.
+* Evite jargões técnicos desnecessários.
+* Use tom humano, direto e profissional.
+* Varie introduções e transições naturalmente sem comprometer clareza.
+* Evite repetir estruturas mecanicamente entre gerações.
+* Priorize clareza acima de criatividade.
+* Máximo de 210 palavras.
+* Não utilize markdown.
+
+A proposta deve conter:
+
+1. Abertura contextualizada ao problema do cliente.
+2. Demonstração breve de entendimento estratégico/técnico.
+3. O que será entregue.
+4. Diferencial profissional relevante.
+5. Expectativa de execução ou prazo.
+6. Encerramento leve incentivando resposta.
+`
 
     const response = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
