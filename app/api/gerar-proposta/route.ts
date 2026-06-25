@@ -14,17 +14,6 @@ export async function POST(request: Request) {
       language,
     } = body;
 
-    console.log("Dados:", {
-      clientName,
-      projectType,
-      challenge,
-      price,
-      currency,
-      duration,
-      durationUnit,
-      language,
-    });
-
     const projectTypeNames: Record<string, string> = {
       website: "Website",
       "UI/UX": "UI/UX e Identidade Visual",
@@ -38,49 +27,47 @@ export async function POST(request: Request) {
 
     const prompt = `Você é um especialista em propostas comerciais para freelancers em marketplaces competitivos como 99Freelas, Workana e Fiverr.
 
-Seu objetivo principal é gerar uma proposta que aumente as chances de resposta do cliente e transmissão de confiança profissional.
+    Seu objetivo principal é gerar uma proposta que aumente as chances de resposta do cliente e transmissão de confiança profissional.
 
-A proposta deve parecer escrita manualmente, de forma natural e específica para o projeto.
+    A proposta deve parecer escrita manualmente, de forma natural e específica para o projeto.
 
-Idioma obrigatório: ${language}
+    Idioma obrigatório: ${language}
 
-Nome do cliente: ${clientName}
-Serviço solicitado: ${projectTypeNames[projectType] || projectType}
-Desafio do cliente: ${challenge}
-Investimento proposto: ${currencySymbol} ${price}
-Prazo estimado: ${duration ? `${duration} ${durationUnit}` : "A combinar"}
+    Nome do cliente: ${clientName}
+    Serviço solicitado: ${projectTypeNames[projectType] || projectType}
+    Desafio do cliente: ${challenge}
+    Investimento proposto: ${currencySymbol} ${price}
+    Prazo estimado: ${duration ? `${duration} ${durationUnit}` : "A combinar"}
 
-CONTEXTO IMPORTANTE:
+    CONTEXTO IMPORTANTE:
 
-* O cliente provavelmente recebeu diversas propostas.
-* O texto deve ser fácil e rápido de escanear.
-* A proposta deve transmitir clareza, entendimento do problema e redução de risco.
-* Evite excesso de persuasão, marketing exagerado ou linguagem artificial.
+    * O cliente provavelmente recebeu diversas propostas.
+    * O texto deve ser fácil e rápido de escanear.
+    * A proposta deve transmitir clareza, entendimento do problema e redução de risco.
+    * Evite excesso de persuasão, marketing exagerado ou linguagem artificial.
 
-DIRETRIZES:
+    DIRETRIZES:
 
-* Demonstre entendimento genuíno do desafio apresentado.
-* Foque no impacto e benefício final para o cliente.
-* Mostre segurança e organização sem parecer robótico.
-* Evite frases genéricas típicas de marketplaces.
-* Evite exageros e promessas irreais.
-* Evite jargões técnicos desnecessários.
-* Use tom humano, direto e profissional.
-* Varie introduções e transições naturalmente sem comprometer clareza.
-* Evite repetir estruturas mecanicamente entre gerações.
-* Priorize clareza acima de criatividade.
-* Máximo de 210 palavras.
-* Não utilize markdown.
+    * Demonstre entendimento genuíno do desafio apresentado.
+    * Foque no impacto e benefício final para o cliente.
+    * Mostre segurança e organização sem parecer robótico.
+    * Evite frases genéricas típicas de marketplaces.
+    * Evite exageros e promessas irreais.
+    * Evite jargões técnicos e formalidade desnecessários.
+    * Use tom humano, direto e profissional.
+    * Varie introduções e transições naturalmente sem comprometer clareza.
+    * Evite repetir estruturas mecanicamente entre gerações.
+    * Priorize clareza acima de criatividade.
+    * Máximo de 150 palavras.
+    * Não utilize markdown.
 
-A proposta deve conter:
+    A proposta deve conter:
 
-1. Abertura contextualizada ao problema do cliente.
-2. Demonstração breve de entendimento estratégico/técnico.
-3. O que será entregue.
-4. Diferencial profissional relevante.
-5. Expectativa de execução ou prazo.
-6. Encerramento leve incentivando resposta.
-`
+    1. Abertura contextualizada ao problema do cliente sem repetir o que o mesmo ja falou.
+    2. Demonstração breve de entendimento estratégico/técnico.
+    3. O que será entregue.
+    4. Encerramento leve incentivando resposta.
+  `;
 
     const response = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
