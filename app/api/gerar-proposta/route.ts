@@ -59,23 +59,8 @@ export async function POST(request: Request) {
     * Varie introduções e transições naturalmente sem comprometer clareza.
     * Evite repetir estruturas mecanicamente entre gerações.
     * Priorize clareza acima de criatividade.
-    * Máximo de 250 palavras.
+    * Máximo de 180 palavras.
     * Não utilize markdown.
-
-    ESTRUTURA DE EXEMPLO:
-    Olá, ${clientName}! Vimos que você precisa de uma ${challenge} para sua empresa.
-
-Nosso desenvolvimento é feito com código limpo, seguro e escalável, garantindo desempenho, flexibilidade e facilidade de manutenção.
-
-Entregamos: o que o cliente precisa
-
-
-Confira um pouco do nosso trabalho:
-https://www.zunbee.com.br
-
-Na ZunBee somos especialistas em transformar ideias em soluções digitais inteligentes.
-Vamos conversar sobre como podemos tirar esse projeto do papel e gerar impacto positivo juntos?
-
 
     A proposta deve conter:
 
