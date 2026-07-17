@@ -26,49 +26,60 @@ export async function POST(request: Request) {
     const currencySymbol =
       currency === "BRL" ? "R$" : currency === "USD" ? "$" : "€";
 
-    const prompt = `Você é um especialista em propostas comerciais para freelancers em marketplaces competitivos como 99Freelas, Workana e Fiverr.
+    const prompt = `
+      Você é um especialista em propostas comerciais para freelancers em marketplaces competitivos como o 99Freelas.
 
-    Seu objetivo principal é gerar uma proposta que aumente as chances de resposta do cliente e transmissão de confiança profissional.
+      Seu objetivo principal é gerar uma proposta que aumente as chances de resposta do cliente e transmissão de confiança profissional.
 
-    A proposta deve parecer escrita manualmente, de forma natural e específica para o projeto.
+      A proposta deve parecer escrita manualmente, de forma natural e específica para o projeto.
 
-    Idioma obrigatório: ${language}
+      Idioma obrigatório: ${language}
 
-    Nome do cliente: ${clientName}
-    Serviço solicitado: ${projectTypeNames[projectType] || projectType}
-    Desafio do cliente: ${challenge}
-    Investimento proposto: ${currencySymbol} ${price}
-    Prazo estimado: ${duration ? `${duration} ${durationUnit}` : "A combinar"}
+      Nome do cliente: ${clientName}
+      Serviço solicitado: ${projectTypeNames[projectType] || projectType}
+      Desafio do cliente: ${challenge}
+      Investimento proposto: ${currencySymbol} ${price}
+      Prazo estimado: ${duration ? `${duration} ${durationUnit}` : "A combinar"}
 
-    CONTEXTO IMPORTANTE:
+      CONTEXTO IMPORTANTE:
+        * O cliente provavelmente recebeu diversas propostas.
+        * O texto deve ser fácil e rápido de escanear.
+        * A proposta deve transmitir clareza, entendimento do problema e redução de risco.
+        * Evite excesso de persuasão, marketing exagerado ou linguagem artificial.
 
-    * O cliente provavelmente recebeu diversas propostas.
-    * O texto deve ser fácil e rápido de escanear.
-    * A proposta deve transmitir clareza, entendimento do problema e redução de risco.
-    * Evite excesso de persuasão, marketing exagerado ou linguagem artificial.
+       DIRETRIZES:
+        * Demonstre entendimento genuíno do desafio apresentado.
+        * Foque no impacto e benefício final para o cliente.
+        * Mostre segurança e organização sem parecer robótico.
+        * Evite frases genéricas típicas de marketplaces.
+        * Evite exageros e promessas irreais.
+        * Evite jargões técnicos e formalidade desnecessários.
+        * Use tom humano, direto e profissional.
+        * Varie introduções e transições naturalmente sem comprometer clareza.
+        * Evite repetir estruturas mecanicamente entre gerações.
+        * Priorize clareza acima de criatividade.
+        * Máximo de 200 palavras.
+        * Não utilize markdown.
 
-    DIRETRIZES:
+      A proposta deve conter:
+        1) Apresentação:
+      "Olá, ${clientName}! Meu nome é (seu nome), trabalho com ${projectType}"
 
-    * Demonstre entendimento genuíno do desafio apresentado.
-    * Foque no impacto e benefício final para o cliente.
-    * Mostre segurança e organização sem parecer robótico.
-    * Evite frases genéricas típicas de marketplaces.
-    * Evite exageros e promessas irreais.
-    * Evite jargões técnicos e formalidade desnecessários.
-    * Use tom humano, direto e profissional.
-    * Varie introduções e transições naturalmente sem comprometer clareza.
-    * Evite repetir estruturas mecanicamente entre gerações.
-    * Priorize clareza acima de criatividade.
-    * Máximo de 180 palavras.
-    * Não utilize markdown.
+        2) Fale do projeto
+      "Gostei do seu projeto porque estou atuo nessa área de ..., já fiz X projetos de portfólio nessa área, e sei construir..."
 
-    A proposta deve conter:
+        3) Mostre como sou capacitado
+        "Como profissional de ${projectType}, consigo criar projetos envolventes, que vão atrair clientes pro seu projeto e que vai gerar vendas pro seu produto..."
 
-    1. Abertura contextualizada ao problema do cliente sem repetir o que o mesmo ja falou.
-    2. Demonstração breve de entendimento estratégico/técnico.
-    3. O que será entregue.
-    4. Encerramento leve incentivando resposta.
-  `;
+        4) Faça uma oferta
+          "${clientName}, eu cobro ${currencySymbol} ${price} para entregar (o que você vai entregar) em ${duration} ${durationUnit}. Fica bom para você?"
+
+        5) Termine fazendo uma chamada
+        "Se sim, consigo começar hoje mesmo!
+        Fico no aguardo de um retorno seu,
+        Atenciosamente,
+        (Seu nome)
+      `;
 
     const response = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
