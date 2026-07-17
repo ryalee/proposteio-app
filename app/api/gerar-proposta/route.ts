@@ -69,7 +69,7 @@ export async function POST(request: Request) {
       "Gostei do seu projeto porque estou atuo nessa área de ..., já fiz X projetos de portfólio nessa área, e sei construir..."
 
         3) Mostre como sou capacitado
-        "Como profissional de ${projectType}, consigo criar projetos envolventes, que vão atrair clientes pro seu projeto e que vai gerar vendas pro seu produto..."
+        "Como profissional de ${projectType}, consigo criar projetos envolventes, que vão atrair clientes e que vai gerar vendas pro seu produto..."
 
         4) Faça uma oferta
           "${clientName}, eu cobro ${currencySymbol} ${price} para entregar (o que você vai entregar) em ${duration} ${durationUnit}. Fica bom para você?"
