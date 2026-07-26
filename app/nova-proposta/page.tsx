@@ -30,6 +30,7 @@ export default function NovaProposta() {
 
   const [formData, setFormData] = useState({
     clientName: "",
+    myName:"",
     projectType: "" as ProjectType | "",
     language: "pt-BR" as Language,
     challenge: "",
@@ -344,6 +345,23 @@ export default function NovaProposta() {
                 Vamos começar com os dados principais do projeto.
               </p>
 
+              <div className="mb-6">
+                <label className="block mb-2 font-medium text-sm">
+                  Seu Nome{" "}
+                  <span className="text-red-600 text-xs">*</span>
+                </label>
+
+                <input
+                  type="text"
+                  value={formData.myName}
+                  onChange={(e) =>
+                    setFormData({ ...formData, myName: e.target.value })
+                  }
+                  placeholder="Ex: Eu da Silva"
+                  className="w-full px-4 py-3 border border-[#888] rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none transition-all"
+                />
+              </div>
+              
               <div className="mb-6">
                 <label className="block mb-2 font-medium text-sm">
                   Nome do Cliente{" "}
