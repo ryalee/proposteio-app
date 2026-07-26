@@ -5,6 +5,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const {
       clientName,
+      myName,
       projectType,
       challenge,
       price,
@@ -36,6 +37,7 @@ export async function POST(request: Request) {
       Idioma obrigatório: ${language}
 
       Nome do cliente: ${clientName}
+      Meu nome: ${myName}
       Serviço solicitado: ${projectTypeNames[projectType] || projectType}
       Desafio do cliente: ${challenge}
       Investimento proposto: ${currencySymbol} ${price}
