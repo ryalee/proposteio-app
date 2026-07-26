@@ -302,6 +302,7 @@ export default function NovaProposta() {
       () => {
         setFormData({
           clientName: "",
+          myName: "",
           projectType: "",
           language: "pt-BR",
           challenge: "",
