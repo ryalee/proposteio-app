@@ -60,7 +60,7 @@ export async function POST(request: Request) {
         * Varie introduções e transições naturalmente sem comprometer clareza.
         * Evite repetir estruturas mecanicamente entre gerações.
         * Priorize clareza acima de criatividade.
-        * Máximo de 200 palavras.
+        * Máximo de 120 palavras.
         * Não utilize markdown.
 
       A proposta deve conter:
